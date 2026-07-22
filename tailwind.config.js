@@ -1,6 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  content: [
+    './index.html',
+    './src/**/*.{js,ts,jsx,tsx}',
+    // Shared package's compiled JS — Tailwind JIT needs to see the
+    // class names used inside <Turnstile>, <VerifyEmailBanner>,
+    // <ForgotPasswordPage>, etc.
+    './node_modules/@ballisticbrands/frontend-shared/dist/**/*.js',
+  ],
   theme: {
     extend: {
       fontFamily: {
