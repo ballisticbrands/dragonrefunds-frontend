@@ -1,4 +1,4 @@
-import type { BrandConfig } from "./types";
+import type { BrandConfig } from "@ballisticbrands/frontend-shared";
 
 export const DRAGONREFUNDS: BrandConfig = {
   id: "dragonrefunds",
