@@ -1,0 +1,137 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+  --muted: #f5f5f5;
+  --muted-foreground: #6b6b6b;
+  --border: #e7e7e7;
+  --accent: #ea580c;       /* DragonBot orange — picks up the "fire" theme */
+  --accent-foreground: #ffffff;
+  --danger: #b91c1c;
+  --success: #15803d;
+  --card: #ffffff;
+  --code-bg: #0b0f17;
+  --code-fg: #e6edf3;
+}
+
+html,
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+* {
+  border-color: var(--border);
+}
+
+/* Typographic styling for documentation pages. Doc content is authored as
+   plain semantic HTML (see src/docs/content/*); this wrapper styles it so
+   each page doesn't have to repeat Tailwind classes on every element. */
+.docs-prose {
+  max-width: 44rem;
+  color: var(--foreground);
+  line-height: 1.7;
+  font-size: 0.95rem;
+}
+
+.docs-prose h1 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 1rem;
+}
+
+.docs-prose h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 2.25rem 0 0.75rem;
+  padding-top: 0.25rem;
+  scroll-margin-top: 1.5rem;
+}
+
+.docs-prose h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 1.75rem 0 0.5rem;
+  scroll-margin-top: 1.5rem;
+}
+
+.docs-prose p {
+  margin: 0 0 1rem;
+}
+
+.docs-prose .lead {
+  font-size: 1.1rem;
+  color: var(--muted-foreground);
+  margin-bottom: 1.5rem;
+}
+
+.docs-prose ul,
+.docs-prose ol {
+  margin: 0 0 1rem;
+  padding-left: 1.5rem;
+}
+
+/* Tailwind's preflight strips list markers; restore them for doc prose. */
+.docs-prose ul {
+  list-style: disc;
+}
+
+.docs-prose ol {
+  list-style: decimal;
+}
+
+.docs-prose li {
+  margin: 0.35rem 0;
+}
+
+.docs-prose a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.docs-prose code {
+  background: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.1rem 0.35rem;
+  font-size: 0.85em;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.docs-prose pre {
+  background: var(--code-bg);
+  color: var(--code-fg);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+  margin: 0 0 1.25rem;
+}
+
+.docs-prose pre code {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font-size: 0.85rem;
+  color: inherit;
+}
+
+.docs-prose hr {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: 2rem 0;
+}

@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/logos/dragonbot_fire.png" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Fallback title + description for anything that renders before
+         the SPA mounts. main.tsx sets the final values from the brand
+         config — kept here as a graceful pre-hydration state. -->
+    <meta name="description" content="Dragon Refunds recovers Amazon FBA reimbursements." />
+    <title>Dragon Refunds — Get Back What Amazon Owes You</title>
+    <!-- GA4 + Microsoft Clarity are injected at runtime from
+         src/main.tsx. The inline snippets used to live here but making
+         them consistent with the sibling brand repo (which does the
+         same) keeps the pattern portable to the eventual shared
+         package. -->
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
