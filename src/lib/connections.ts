@@ -65,13 +65,6 @@ export async function startAmazonConnection() {
   );
 }
 
-export async function startAmazonAdsConnection() {
-  return startConnection(
-    "/v1/connect/amazon-ads/start",
-    "Could not start the Amazon Ads connection.",
-  );
-}
-
 /**
  * Re-authenticate an existing SP-API connection without losing its
  * BQ dataset / sync history. Backend UPDATES the row's refresh token

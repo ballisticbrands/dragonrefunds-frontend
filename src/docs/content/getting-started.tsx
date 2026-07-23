@@ -71,22 +71,6 @@ export function GettingStarted() {
         caption="Dashboard → Data → Amazon Seller Central"
       />
 
-      <h3>Connect Amazon Ads</h3>
-      <ol>
-        <li>
-          In the <strong>Amazon Ads</strong> card, click{" "}
-          <strong>Connect Amazon Ads account</strong>.
-        </li>
-        <li>
-          Authorize DragonBot in the Amazon window that opens. You can connect
-          multiple ads accounts here too.
-        </li>
-      </ol>
-      <Screenshot
-        alt="The Data tab showing the Amazon Ads card with a Connect Amazon Ads account button."
-        caption="Dashboard → Data → Amazon Ads"
-      />
-
       <Callout title="Your data is syncing">
         <p>
           After you connect, DragonBot begins pulling your historical data in

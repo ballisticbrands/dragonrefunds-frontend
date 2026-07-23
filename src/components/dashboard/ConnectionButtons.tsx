@@ -5,7 +5,6 @@ import { useBrand } from "@ballisticbrands/frontend-shared";
 import {
   disconnectConnection,
   reauthAmazonConnection,
-  startAmazonAdsConnection,
   startAmazonConnection,
 } from "@/lib/connections";
 
@@ -130,29 +129,6 @@ export function ConnectAmazonButton({
       action={startAmazonConnection}
       popupName={`${brand.id}-spapi-oauth`}
       matchProvider="amazon-selling-partner"
-      onConnected={onConnected}
-    />
-  );
-}
-
-export function ConnectAmazonAdsButton({
-  label = "Connect Amazon Ads account",
-  variant = "primary",
-  onConnected,
-}: {
-  label?: string;
-  variant?: "primary" | "secondary";
-  onConnected: () => void;
-}) {
-  const brand = useBrand();
-  return (
-    <ConnectButton
-      label={label}
-      pendingLabel="Waiting for Amazon Ads…"
-      variant={variant}
-      action={startAmazonAdsConnection}
-      popupName={`${brand.id}-ads-oauth`}
-      matchProvider="amazon-ads"
       onConnected={onConnected}
     />
   );
