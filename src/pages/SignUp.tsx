@@ -8,14 +8,16 @@ import {
   useBrand,
   useSignUpForm,
 } from "@ballisticbrands/frontend-shared";
-import { track } from "../lib/track";
 
 export function SignUp() {
   const navigate = useNavigate();
   const brand = useBrand();
   const form = useSignUpForm({
     onSuccess: () => {
-      track("sign_up");
+      // The `sign_up` GA4/Clarity event is fired by the shared
+      // identifyUserAcrossPlatforms() (after the post-signup /me lookup),
+      // which also sets user_id + user_properties. Firing it here too
+      // double-counted the conversion, so we only navigate.
       navigate("/dashboard", { replace: true });
     },
   });
