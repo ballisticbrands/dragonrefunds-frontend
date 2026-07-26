@@ -38,8 +38,15 @@ function injectGa4(measurementId: string): void {
   document.head.appendChild(s);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (window as any).dataLayer = (window as any).dataLayer || [];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const gtag = function (...args: unknown[]) { (window as any).dataLayer.push(args); };
+  // gtag.js only processes the `arguments` object pushed to dataLayer.
+  // The previous shim pushed a rest-param *array*, which gtag.js silently
+  // ignores — so gtag('config') and every gtag('event') no-op'd and NO
+  // hits were ever sent (page_view, sign_up, etc. all dropped). Push the
+  // arguments object like the canonical snippet.
+  const gtag: (...args: unknown[]) => void = function () {
+    // eslint-disable-next-line prefer-rest-params, @typescript-eslint/no-explicit-any
+    (window as any).dataLayer.push(arguments);
+  };
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (window as any).gtag = gtag;
   gtag("js", new Date());
@@ -51,9 +58,11 @@ function injectClarity(projectId: string): void {
   // Verbatim port of the standard Clarity snippet.
   ((c, l, a, r, i) => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (c as any)[a] = (c as any)[a] || function (...args: unknown[]) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      ((c as any)[a].q = (c as any)[a].q || []).push(args);
+    (c as any)[a] = (c as any)[a] || function () {
+      // Clarity's queue, like gtag's, expects the arguments object — not
+      // a plain array (see the GA4 note above).
+      // eslint-disable-next-line prefer-rest-params, @typescript-eslint/no-explicit-any
+      ((c as any)[a].q = (c as any)[a].q || []).push(arguments);
     };
     const t = l.createElement(r) as HTMLScriptElement;
     t.async = true;
