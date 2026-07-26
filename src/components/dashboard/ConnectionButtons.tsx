@@ -7,6 +7,7 @@ import {
   reauthAmazonConnection,
   startAmazonConnection,
 } from "@/lib/connections";
+import { track } from "@/lib/track";
 
 // Backend (where the OAuth popup loads) origin. Must match e.origin
 // on incoming postMessage. Built from config.apiUrl.
@@ -57,6 +58,10 @@ function ConnectButton({
       setPending(false);
       if (data.status === "connected") {
         setError(null);
+        // Fire the bot-proof conversion only on a first-time connect, not reauth.
+        if (!popupName.includes("reauth")) {
+          track("connect_amazon", { provider: matchProvider });
+        }
         onConnected();
       } else {
         setError(data.detail || "Connection failed.");
@@ -64,7 +69,7 @@ function ConnectButton({
     }
     window.addEventListener("message", onMessage);
     return () => window.removeEventListener("message", onMessage);
-  }, [matchProvider, onConnected, oauthType]);
+  }, [matchProvider, onConnected, oauthType, popupName]);
 
   async function onClick() {
     setPending(true);

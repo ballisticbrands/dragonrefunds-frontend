@@ -8,12 +8,16 @@ import {
   useBrand,
   useSignUpForm,
 } from "@ballisticbrands/frontend-shared";
+import { track } from "../lib/track";
 
 export function SignUp() {
   const navigate = useNavigate();
   const brand = useBrand();
   const form = useSignUpForm({
-    onSuccess: () => navigate("/dashboard", { replace: true }),
+    onSuccess: () => {
+      track("sign_up");
+      navigate("/dashboard", { replace: true });
+    },
   });
 
   useEffect(() => {
