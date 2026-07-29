@@ -39,7 +39,8 @@ export default function App() {
         path="/sign-up"
         element={
           <PublicOnly>
-            <AuthLayout>
+            {/* Wide column: /sign-up leads with the reimbursement estimate. */}
+            <AuthLayout width="lg">
               <SignUp />
             </AuthLayout>
           </PublicOnly>

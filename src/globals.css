@@ -15,6 +15,31 @@
   --card: #ffffff;
   --code-bg: #0b0f17;
   --code-fg: #e6edf3;
+
+  /* Dragon Refunds brand greens. --accent above is still DragonBot orange,
+     inherited from the fork; these are the refunds palette, used by the
+     sign-up estimate so this app matches dragonrefunds.com. */
+  --brand-green: #2f7d4f;
+  --brand-green-light: #98cc65;
+
+  /* Report-turnaround badge. Amber, and deliberately not --danger: the
+     badge is a delivery promise, not a warning. Values are AA-contrast on
+     the white card. */
+  --eta-fg: #8a5a00;
+  --eta-strong: #6b4400;
+  --eta-bg: rgba(180, 83, 9, 0.08);
+  --eta-border: rgba(180, 83, 9, 0.3);
+}
+
+/* Report-turnaround badge — see REPORT_ETA_HOURS in lib/refundsEstimate.ts. */
+.eta-badge {
+  color: var(--eta-fg);
+  background-color: var(--eta-bg);
+  border-color: var(--eta-border);
+}
+
+.eta-badge .eta-badge-strong {
+  color: var(--eta-strong);
 }
 
 html,
