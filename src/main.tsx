@@ -8,6 +8,7 @@ import {
 } from "@ballisticbrands/frontend-shared";
 import App from "./App";
 import { activeBrand } from "./brands";
+import { META_PIXEL_ID } from "./brands/dragonrefunds";
 import { config } from "./lib/config";
 import "./globals.css";
 
@@ -72,8 +73,41 @@ function injectClarity(projectId: string): void {
   })(window, document, "clarity", "script", projectId);
 }
 
+function injectMetaPixel(pixelId: string): void {
+  if (!pixelId) return;
+  // Verbatim port of Meta's standard snippet, same shape as the GA4 and
+  // Clarity injectors above: stand up the queue shim, then load the script.
+  //
+  // NOTE: the Meta *events* already exist — frontend-shared's attribution.ts
+  // fires CompleteRegistration on sign-up and ConnectSeller / ConnectAds on
+  // account connect, each behind a `typeof window.fbq === "function"` guard.
+  // Until this function ran, nothing ever defined window.fbq on the app
+  // domain, so every one of those calls silently no-op'd. This is the loader
+  // that switches them on — it is not a new event layer.
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  const w = window as any;
+  if (w.fbq) return;
+  const n = (w.fbq = function () {
+    // eslint-disable-next-line prefer-rest-params
+    n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+  }) as any;
+  if (!w._fbq) w._fbq = n;
+  n.push = n;
+  n.loaded = true;
+  n.version = "2.0";
+  n.queue = [];
+  const t = document.createElement("script");
+  t.async = true;
+  t.src = "https://connect.facebook.net/en_US/fbevents.js";
+  document.head.appendChild(t);
+  /* eslint-enable @typescript-eslint/no-explicit-any */
+  w.fbq("init", pixelId);
+  w.fbq("track", "PageView");
+}
+
 injectGa4(brand.ga4MeasurementId);
 injectClarity(brand.clarityId);
+injectMetaPixel(META_PIXEL_ID);
 
 // Brand-aware tab title + meta description.
 document.title = `${brand.displayName} — Amazon Seller MCP for AI agents`;
