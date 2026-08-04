@@ -30,6 +30,6 @@ export const DRAGONREFUNDS: BrandConfig = {
  * that is needed to switch the pixel on. Fold it into BrandConfig alongside
  * ga4MeasurementId / clarityId on the next shared release.
  *
- * See DragonBot-marketing/META_TRACKING_SETUP.md.
+ * See Dragon-marketing/META_TRACKING_SETUP.md.
  */
 export const META_PIXEL_ID = "1030872029657370";
