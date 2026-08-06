@@ -7,7 +7,6 @@ import {
   reauthAmazonConnection,
   startAmazonConnection,
 } from "@/lib/connections";
-import { track } from "@/lib/track";
 
 // Backend (where the OAuth popup loads) origin. Must match e.origin
 // on incoming postMessage. Built from config.apiUrl.
@@ -58,10 +57,9 @@ function ConnectButton({
       setPending(false);
       if (data.status === "connected") {
         setError(null);
-        // Fire the bot-proof conversion only on a first-time connect, not reauth.
-        if (!popupName.includes("reauth")) {
-          track("connect_amazon", { provider: matchProvider });
-        }
+        // No conversion fired here: this postMessage can be dropped, so
+        // activations now come from reconcileConnectionActivations()
+        // (server state), which onConnected() ultimately triggers.
         onConnected();
       } else {
         setError(data.detail || "Connection failed.");

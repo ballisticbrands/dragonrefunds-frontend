@@ -9,7 +9,6 @@
 
 import { Card, CardBody, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card";
 import { useBrand } from "@ballisticbrands/frontend-shared";
-import { trackAccountConnected } from "@ballisticbrands/frontend-shared";
 import { ConnectAmazonButton } from "./ConnectionButtons";
 
 export function ConnectSellerPrompt({ onConnected }: { onConnected: () => void }) {
@@ -30,7 +29,10 @@ export function ConnectSellerPrompt({ onConnected }: { onConnected: () => void }
           <ConnectAmazonButton
             label="Connect Amazon Seller Central account"
             onConnected={() => {
-              trackAccountConnected("amazon_seller");
+              // No activation event here — onConnected() leads to the
+              // dashboard's refresh + reconcileConnectionActivations(),
+              // which fires from server state rather than the droppable
+              // OAuth postMessage.
               onConnected();
             }}
           />
